@@ -1,16 +1,22 @@
 <?php require_once __DIR__ . '/templates/header.php';
-require_once __DIR__ . "/../models/repositories/AcccountRepository.php"; ?>
+require_once __DIR__ . "/../models/repositories/AccountRepository.php"; ?>
 
 <h2 class="mb-4">⊕ Créer un nouveau compte client</h2>
 
-<form action="?action=store" method="POST">
+<form action="?action=client-store" method="POST">
     <div class="mb-3">
         <label for="firstname" class="form-label">Iban :</label>
         <input type="text" class="form-control" id="account_iban" name="account_iban" required>
     </div>
     <div class="mb-3">
-        <label for="lastname" class="form-label">Type de compte :</label>
-        <input type="text" class="form-control" id="account_type" name="account_type" required>
+        <label for="account_type" class="form-label">Type de compte :</label>
+        <select class="form-select" id="account_type" name="account_type" required>
+            <?php foreach ($types as $type): ?>
+                <option value="<?= $type ?>" <?= $type === $currentType ? 'selected' : '' ?>>
+                    <?= $type ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
     <div class="mb-3">
         <label for="email" class="email">Solde :</label>
@@ -25,6 +31,6 @@ require_once __DIR__ . "/../models/repositories/AcccountRepository.php"; ?>
     <button type="submit" class="btn btn-primary">Ajouter</button>
 </form>
 
-<a href="?" class="btn btn-secondary">Retour à la liste</a>
+<a href="?action=account-list" class="btn btn-secondary">Retour à la liste</a>
 
 <?php require_once __DIR__ . '/templates/footer.php';

@@ -15,7 +15,7 @@ require_once __DIR__ . "/../models/repositories/ClientRepository.php"; ?>
 <p><strong>Téléphone : </strong> <?= $client->getPhone() ?></p>
 <p><strong>Adresse: </strong> <?= $client->getAddress() ?></p>
 
-<a href="?action=edit&client_id=<?= $client->getId() ?>" class="btn btn-warning">Modifier la fiche client</a>
-<a href="?" class="btn btn-secondary">Retour à la liste</a>
+<a href="?action=client-edit&client_id=<?= $client->getId() ?>" class="btn btn-warning">Modifier la fiche client</a>
+<a href="?action=client-list" class="btn btn-secondary">Retour à la liste</a>
 
 <?php require_once __DIR__ . '/templates/footer.php';

@@ -18,6 +18,7 @@ class AdminController
 
     public function doLogin()
     {
+
         $admin_username = filter_input(INPUT_POST, 'admin_username');
         $admin_password = filter_input(INPUT_POST, 'admin_password');
 
@@ -26,7 +27,7 @@ class AdminController
         if (password_verify($admin_password, $admin->getAdminpassword())) {
             $_SESSION['admin_id'] = $admin->getAdminid();
 
-            header('Location: ?action=client-list');
+            header('Location: ?action=tableaubord');
             exit;
         } else {
             header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -37,8 +38,22 @@ class AdminController
     public function logout()
     {
         unset($_SESSION['admin_id']);
-        header('Location: ?');
+        header('Location: ?action=home');
         exit;
+    }
+
+    public function showTableauBord()
+    {
+        // On instancie les repositories nécessaires
+        $clientRepository = new ClientRepository();
+        $accountRepository = new AccountRepository();
+
+        // On récupère les données à afficher
+        $totalClients = $clientRepository->afficheNbTotal();
+        $totalAccounts = $accountRepository->afficheNbTotal();
+
+        // On envoie les données à la vue
+        require_once __DIR__ . '/../views/tableaubord.php';
     }
 }
 

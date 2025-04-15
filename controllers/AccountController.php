@@ -47,15 +47,22 @@ class AccountController
 
     public function update()
     {
+        $accountType = AccountType::tryFrom($_POST['account_type']);
+        if (!$accountType) {
+            // rediriger avec un message d’erreur, ou afficher une vue d’erreur
+            throw new InvalidArgumentException("Type de compte invalide !");
+        }
+
         $account = new Account();
-        $account->setAccountId($_POST['account_id']);
+        $account->setAccountId((int) $_POST['account_id']);
         $account->setAccountIban($_POST['account_iban']);
-        $account->setAccountType($_POST['account_type']);
+        $account->setAccountType($accountType);
         $account->setAccountBalance($_POST['account_balance']);
-        $account->setClientId($_POST['client_id']);
+        $account->setClientId((int) $_POST['client_id']);
+
         $this->accountRepository->update($account);
 
-        header('Location: ?');
+        header('Location: ?action=account-list');
         exit;
     }
 
@@ -76,13 +83,22 @@ class AccountController
 
     public function store()
     {
+        $accountType = AccountType::tryFrom($_POST['account_type']);
+        if (!$accountType) {
+            // Gérer le cas où le type de compte n'est pas valide
+            throw new InvalidArgumentException("Type de compte invalide !");
+        }
+
         $account = new Account();
         $account->setAccountIban($_POST['account_iban']);
-        $account->setAccountType($_POST['account_type']);
+        $account->setAccountType($accountType);
         $account->setAccountBalance($_POST['account_balance']);
-        $account->setClientId($_POST['client_id']);
+        $account->setClientId((int) $_POST['client_id']);
+
         $this->accountRepository->create($account);
-        header('Location: ?');
+
+        header('Location: ?action=account-list');
+        exit;
     }
 
 

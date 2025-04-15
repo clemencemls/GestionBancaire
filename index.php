@@ -4,6 +4,7 @@ session_start();
 
 require_once __DIR__ . '/controllers/ClientController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
+require_once __DIR__ . '/controllers/AccountController.php';
 require_once __DIR__ . '/lib/utils.php';
 
 
@@ -17,10 +18,12 @@ require_once __DIR__ . '/lib/utils.php';
 
 
 $clientController = new ClientController();
+$accountController = new AccountController();
 $adminController = new AdminController();
 
 $action = $_GET['action'] ?? 'index'; // Si $_GET['action'] est null ou vide, alors on renvoi index. Sinon on renvoi $_GET['action']
 $client_id = $_GET['client_id'] ?? null;
+$account_id = $_GET['account_id'] ?? null;
 
 switch ($action) {
     case 'logout':
@@ -32,29 +35,56 @@ switch ($action) {
     case 'login':
         $adminController->login();
         break;
+    case 'home':
+        $adminController->login();
+        break;
     case 'index':
-        $clientController->home();
+        $adminController->login();
+        break;
+    case 'tableaubord':
+        $adminController->showTableauBord();
         break;
     case 'client-list':
         $clientController->allclients();
         break;
-    case 'view':
+    case 'client-view':
         $clientController->show($client_id);
         break;
-    case 'create':
+    case 'client-create':
         $clientController->create();
         break;
-    case 'store':
+    case 'client-store':
         $clientController->store();
         break;
-    case 'edit':
+    case 'client-edit':
         $clientController->edit($client_id);
         break;
-    case 'update':
+    case 'client-update':
         $clientController->update();
         break;
-    case 'delete':
+    case 'client-delete':
         $clientController->delete($client_id);
+        break;
+    case 'account-list':
+        $accountController->allaccounts();
+        break;
+    case 'account-view':
+        $accountController->show($account_id);
+        break;
+    case 'account-create':
+        $accountController->create();
+        break;
+    case 'account-store':
+        $accountController->store();
+        break;
+    case 'account-edit':
+        $accountController->edit($account_id);
+        break;
+    case 'account-update':
+        $accountController->update();
+        break;
+    case 'account-delete':
+        $accountController->delete($account_id);
         break;
     default:
         $clientController->forbidden();

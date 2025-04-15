@@ -1,47 +1,45 @@
 <?php
 
+
 class Admin
 {
     private int $admin_id;
     private string $admin_username;
     private string $admin_password;
 
-
-    public function getAdminid()
+    // Getter pour admin_id
+    public function getAdminid(): int
     {
-        $this->admin_id;
+        return $this->admin_id;  // Ajout du return
     }
 
-    public function getAdminsername()
+    // Getter pour admin_username
+    public function getAdminusername(): string
     {
-        $this->admin_username;
+        return $this->admin_username;  // Ajout du return
     }
 
-    public function getAdminpassword()
+    // Getter pour admin_password
+    public function getAdminpassword(): string
     {
-        $this->admin_password;
+        return $this->admin_password;  // Ajout du return
     }
 
-    public function setAdminid(int $admin_id)
+    // Setter pour admin_id
+    public function setAdminid(int $admin_id): void
     {
         $this->admin_id = $admin_id;
     }
 
-    public function setAdminusername(string $admin_username)
+    // Setter pour admin_username
+    public function setAdminusername(string $admin_username): void
     {
         $this->admin_username = $admin_username;
     }
 
-    public function setAdminpassword(string $admin_password)
+    // Setter pour admin_password
+    public function setAdminpassword(string $admin_password): void
     {
         $this->admin_password = $admin_password;
     }
-
-
-
-
-
-
-
-
 }

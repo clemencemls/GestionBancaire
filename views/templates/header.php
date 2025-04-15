@@ -11,17 +11,17 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="?">📋 Gestion Bancaire</a>
+            <a class="navbar-brand" href="?action=tableaubord">📋 Gestion Bancaire</a>
             <div class="" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="?">🏠 Accueil</a>
+                        <a class="nav-link" href="?action=tableaubord">🏠 Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?action=client-list">Clients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Compte</a>
+                        <a class="nav-link" href="?action=account-list">Compte</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="">Contrat</a>

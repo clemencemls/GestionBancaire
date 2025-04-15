@@ -29,4 +29,15 @@ class AdminRepository
         $admin->setAdminpassword($result['admin_password']);
         return $admin;
     }
+
+    public function afficheNbTotal(): int
+    {
+        $statement = $this->connection
+            ->getConnection()
+            ->prepare('SELECT COUNT(*) AS total_clients FROM clients');
+        $statement->execute();
+        $result = $statement->fetch();
+
+        return (int) $result['total_clients'];
+    }
 }

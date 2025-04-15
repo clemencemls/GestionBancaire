@@ -1,9 +1,17 @@
 <?php
+require_once __DIR__ . "/templates/header.php";
+require_once __DIR__ . "/../models/repositories/ClientRepository.php";
+require_once __DIR__ . '/../models/Client.php';
+require_once __DIR__ . "/../models/repositories/AccountRepository.php"; ?>
 
 
-// Tableau de bord
-// ● Affichage d’une vue synthétique du système :
-// ○ Nombre total de clients enregistrés.
-// ○ Nombre total de comptes ouverts.
-// ○ Nombre total de contrats souscrits.
-// ● Possibilité d’accéder aux différentes sections via des liens rapides.
+<h1> Bienvenue ! </h1>
+<br>
+<h2>
+    📋 <a href="?action=client-list" class="text-decoration-none text-dark">Nombre total de clients enregistrés :
+        <?= $totalClients ?></a>
+</h2>
+<h2>
+    🏦 <a href="?action=account-list" class="text-decoration-none text-dark"> Nombre total de comptes ouverts :
+        <?= $totalAccounts ?></a>
+</h2>

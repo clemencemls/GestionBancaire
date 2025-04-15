@@ -52,11 +52,11 @@ class ClientController
         $client->setFirstname($_POST['client_firstName']);
         $client->setLastname($_POST['client_lastName']);
         $client->setEmail($_POST['client_email']);
-        $client->setPhone($_POST['client_phone']);
+        // $client->setPhone($_POST['client_phone']);
         $client->setAddress($_POST['client_address']);
         $this->clientRepository->update($client);
 
-        header('Location: ?');
+        header('Location: ?action=client-list');
         exit;
     }
 
@@ -67,12 +67,33 @@ class ClientController
     }
 
 
+    // public function delete(int $client_id)
+    // {
+    //     $this->clientRepository->delete($client_id);
+
+    //     header('Location: ?');
+    // }
+
     public function delete(int $client_id)
     {
+        // Vérifier si le client a des comptes associés
+        if ($this->clientRepository->hasAccounts($client_id)) {
+            // Si le client a des comptes, on ne le supprime pas et on peut afficher un message
+            echo "Impossible de supprimer le client car il possède des comptes.";
+            return;
+        }
+
+        // Si le client n'a pas de comptes, on peut procéder à la suppression
         $this->clientRepository->delete($client_id);
 
-        header('Location: ?');
+        // Redirection après la suppression
+        header('Location: ?action=client-list');
+        exit;
     }
+
+
+
+
 
 
     public function store()
@@ -84,7 +105,13 @@ class ClientController
         $client->setPhone($_POST['client_phone']);
         $client->setAddress($_POST['client_address']);
         $this->clientRepository->create($client);
-        header('Location: ?');
+        header('Location: ?action=client-list');
+    }
+
+    public function afficherTotal()
+    {
+        $totalClients = $this->clientRepository->afficheNbTotal();
+        require_once __DIR__ . '/../views/tableaubord.php';
     }
 
 

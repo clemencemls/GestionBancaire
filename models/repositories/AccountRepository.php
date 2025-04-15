@@ -23,7 +23,7 @@ class AccountRepository
             $account = new Account();
             $account->setAccountId($row['account_id']);
             $account->setAccountIban($row['account_iban']);
-            $account->setAccountType($row['account_type']);
+            $account->setAccountType(AccountType::from($row['account_type']));
             $account->setAccountBalance($row['account_balance']);
             $account->setClientId($row['client_id']);
             $accounts[] = $account;
@@ -33,7 +33,7 @@ class AccountRepository
     }
 
 
-    public function getAccount(int $account_id): ?Client
+    public function getAccount(int $account_id): ?Account
     {
         $statement = $this->connection->getConnection()->prepare("SELECT * FROM accounts WHERE account_id=:account_id");
         $statement->execute(['account_id' => $account_id]);
@@ -46,7 +46,7 @@ class AccountRepository
         $account = new Account();
         $account->setAccountId($result['account_id']);
         $account->setAccountIban($result['account_iban']);
-        $account->setAccountType($result['account_type']);
+        $account->setAccountType(AccountType::from($result['account_type']));
         $account->setAccountBalance($result['account_balance']);
         $account->setClientId($result['client_id']);
 
@@ -62,7 +62,7 @@ class AccountRepository
 
         return $statement->execute([
             'account_iban' => $account->getAccountIban(),
-            'account_type' => $account->getAccountType(),
+            'account_type' => $account->getAccountType()->value, //méthode magique ->value sur l’enum pour obtenir sa valeur string :
             'account_balance' => $account->getAccountBalance(),
             'client_id' => $account->getClientId(),
 
@@ -84,7 +84,7 @@ class AccountRepository
         return $statement->execute([
             'account_id' => $account->getAccountId(),
             'account_iban' => $account->getAccountIban(),
-            'account_type' => $account->getAccountType(),
+            'account_type' => $account->getAccountType()->value,
             'account_balance' => $account->getAccountBalance(),
             'client_id' => $account->getClientId(),
         ]);
@@ -101,5 +101,13 @@ class AccountRepository
 
         return $statement->execute();
     }
-
+    public function afficheNbTotal(): int
+    {
+        $statement = $this->connection
+            ->getConnection()
+            ->prepare('SELECT COUNT(*) AS total FROM accounts');
+        $statement->execute();
+        $result = $statement->fetch();
+        return $result['total'];
+    }
 }

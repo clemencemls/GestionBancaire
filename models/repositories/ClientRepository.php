@@ -81,7 +81,7 @@ class ClientRepository
                       SET client_firstName = :client_firstName,
                           client_lastName = :client_lastName,
                           client_email = :client_email,
-                          client_phone = :client_phone,
+                        --   client_phone = :client_phone,
                           client_address = :client_address
                       WHERE client_id = :client_id');
 
@@ -91,7 +91,7 @@ class ClientRepository
             'client_firstName' => $client->getFirstname(),
             'client_lastName' => $client->getLastname(),
             'client_email' => $client->getEmail(),
-            'client_phone' => $client->getPhone(),
+            // 'client_phone' => $client->getPhone(),
             'client_address' => $client->getAddress(),
         ]);
     }
@@ -108,6 +108,28 @@ class ClientRepository
         return $statement->execute();
     }
 
+    public function afficheNbTotal(): int
+    {
+        $statement = $this->connection
+            ->getConnection()
+            ->prepare('SELECT COUNT(*) AS total_clients FROM clients');
+        $statement->execute();
+        $result = $statement->fetch();
+
+        return (int) $result['total_clients'];
+    }
+
+    public function hasAccounts(int $client_id): bool
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT COUNT(*) FROM accounts WHERE client_id = :client_id'
+        );
+        $statement->execute(['client_id' => $client_id]);
+
+        $count = $statement->fetchColumn();
+
+        return $count > 0; // Retourne true si le client a des comptes
+    }
 
 
 }
