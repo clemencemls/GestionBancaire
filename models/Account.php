@@ -52,7 +52,7 @@ class Account
 
     public function setAccountIban(string $account_iban): void
     {
-        $this->account_iban = $account_iban;
+        $this->account_iban = htmlspecialchars($account_iban);
     }
 
     public function setAccountType(AccountType $account_type): void
@@ -62,7 +62,7 @@ class Account
 
     public function setAccountBalance(string $account_balance): void
     {
-        $this->account_balance = $account_balance;
+        $this->account_balance = htmlspecialchars($account_balance);
     }
 
     public function setClientId(int $client_id): void

@@ -47,27 +47,27 @@ class Client
     }
     public function setFirstname(string $client_firstName): void
     {
-        $this->client_firstName = $client_firstName;
+        $this->client_firstName = htmlspecialchars($client_firstName);
     }
 
     public function setLastname(string $client_lastName): void
     {
-        $this->client_lastName = $client_lastName;
+        $this->client_lastName = htmlspecialchars($client_lastName);
     }
 
     public function setEmail(string $client_email): void
     {
-        $this->client_email = $client_email;
+        $this->client_email = htmlspecialchars($client_email);
     }
 
     public function setPhone(string $client_phone): void
     {
-        $this->client_phone = $client_phone;
+        $this->client_phone = htmlspecialchars($client_phone);
     }
 
     public function setAddress(string $client_address): void
     {
-        $this->client_address = $client_address;
+        $this->client_address = htmlspecialchars($client_address);
     }
 
 

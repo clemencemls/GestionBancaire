@@ -26,14 +26,15 @@
 
     <form action="?action=doLogin" method="POST">
         <div class="form-group">
-            <label for="admin_username">Nom d'utilisateur :</label>
+            <label for="admin_username">Nom d'utilisateur</label> <br>
             <input class="admin_username" type="text" name="admin_username" id="admin_username" required>
         </div>
+        <br>
         <div class="form-group">
-            <label for="admin_password">Mot de passe :</label>
+            <label for="admin_password">Mot de passe</label><br>
             <input class="admin_password" type="password" name="admin_password" id="admin_password" required>
         </div>
-        <div class="form-group">
+        <div class="form-group"> <br>
             <button class="btn btn-primary" type="submit">Se connecter</button>
         </div>
     </form>

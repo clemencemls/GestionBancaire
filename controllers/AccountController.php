@@ -48,10 +48,10 @@ class AccountController
     public function update()
     {
         $accountType = AccountType::tryFrom($_POST['account_type']);
-        if (!$accountType) {
-            // rediriger avec un message d’erreur, ou afficher une vue d’erreur
-            throw new InvalidArgumentException("Type de compte invalide !");
-        }
+        // if (!$accountType) {
+        //     // rediriger avec un message d’erreur, ou afficher une vue d’erreur
+        //     throw new InvalidArgumentException("Type de compte invalide !");
+        // }
 
         $account = new Account();
         $account->setAccountId((int) $_POST['account_id']);
@@ -84,11 +84,10 @@ class AccountController
     public function store()
     {
         $accountType = AccountType::tryFrom($_POST['account_type']);
-        if (!$accountType) {
-            // Gérer le cas où le type de compte n'est pas valide
-            throw new InvalidArgumentException("Type de compte invalide !");
-        }
-
+        // if (!$accountType) {
+        //     // Gérer le cas où le type de compte n'est pas valide
+        //     throw new InvalidArgumentException("Type de compte invalide !");
+        // }
         $account = new Account();
         $account->setAccountIban($_POST['account_iban']);
         $account->setAccountType($accountType);
